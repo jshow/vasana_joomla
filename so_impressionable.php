@@ -1,6 +1,6 @@
 <?php
 ######################################################################
-# So Impressionable Analytics          	          	          	     #
+# Vasana Analytics          	          	          	               #
 # Copyright (C) 2015 by nNovation Group  	   	   	   	   	   	   	   #
 # Homepage   : www.nnovation.ca		   	   	   	   	   	   		         #
 # Author     : Jodi J. Showers	    		   	   	   	   	   	   	   	 #
