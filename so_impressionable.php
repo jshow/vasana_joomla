@@ -1,6 +1,6 @@
 <?php
 ######################################################################
-# Vasana Analytics          	          	          	               #
+# So Impressionable Analytics          	          	          	     #
 # Copyright (C) 2015 by nNovation Group  	   	   	   	   	   	   	   #
 # Homepage   : www.nnovation.ca		   	   	   	   	   	   		         #
 # Author     : Jodi J. Showers	    		   	   	   	   	   	   	   	 #
@@ -64,9 +64,9 @@ class plgSystemSo_impressionable extends JPlugin
         type: 'POST',
         dataType: 'json',
         beforeSend : function(xhr){
-          xhr.setRequestHeader('Accept', 'application/json')
-        },      
-        url: '".$so_impressionable_site_url."api/impressions',
+          xhr.setRequestHeader('Accept', 'application/json; v=1;'); //v=api_version
+        },
+        url: '".$so_impressionable_site_url."api/impressions?secret=".$so_impressionable_site_secret."',
         data: json_data
       });
     } catch (e) {
