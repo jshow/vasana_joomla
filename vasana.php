@@ -1,11 +1,11 @@
 <?php
 ######################################################################
-# So Impressionable Analytics          	          	          	     #
+# Vasana Analytics          	          	          	               #
 # Copyright (C) 2015 by nNovation Group  	   	   	   	   	   	   	   #
 # Homepage   : www.nnovation.ca		   	   	   	   	   	   		         #
 # Author     : Jodi J. Showers	    		   	   	   	   	   	   	   	 #
 # Email      : Jodi@nnovation.ca 	   	   	   	   	   	   	           #
-# Version    : 1.0                      	   	    	   	   		       #
+# Version    : 0.1                      	   	    	   	   		       #
 # License    : http://www.gnu.org/copyleft/gpl.html GNU/GPL          #
 ######################################################################
 
@@ -17,12 +17,12 @@ jimport( 'joomla.html.parameter');
 
 jimport('joomla.log.log');
 
-class plgSystemSo_impressionable extends JPlugin
+class plgSystemVasana extends JPlugin
 {
-	function plgSystemSo_impressionable(&$subject, $config)
+	function plgSystemVasana(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
-		$this->_plugin = JPluginHelper::getPlugin( 'system', 'so_impressionable' );
+		$this->_plugin = JPluginHelper::getPlugin( 'system', 'vasana' );
 		$this->_params = new JRegistry( $this->_plugin->params );
 	}
 	
@@ -33,19 +33,19 @@ class plgSystemSo_impressionable extends JPlugin
     // JLog::add('***** Logged 0');
 	  
 		$mainframe = &JFactory::getApplication();
-		$so_impressionable_site_secret = $this->params->get('so_impressionable_site_secret', '');
-		$so_impressionable_site_url = $this->params->get('so_impressionable_site_url', '');
+		$vasana_secret = $this->params->get('vasana_secret', '');
+		$vasana_url = $this->params->get('vasana_url', '');
 
     // JLog::add('***** Logged 1');
 
-		if($so_impressionable_site_secret == '' || $so_impressionable_site_url == '' || $mainframe->isAdmin())
+		if($vasana_secret == '' || $vasana_url == '' || $mainframe->isAdmin())
 		{
 			return;
 		}
 // JLog::add('***** Logged 2');
 
-    // alert('secret = ".$so_impressionable_site_secret."');
-    // alert('url = ".$so_impressionable_site_url."');
+    // alert('secret = ".$vasana_secret."');
+    // alert('url = ".$vasana_url."');
 
     // JLog::add('***** Logged 3');
 
@@ -66,7 +66,7 @@ class plgSystemSo_impressionable extends JPlugin
         beforeSend : function(xhr){
           xhr.setRequestHeader('Accept', 'application/json; v=1;'); //v=api_version
         },
-        url: '".$so_impressionable_site_url."api/impressions?secret=".$so_impressionable_site_secret."',
+        url: '".$vasana_url."api/impressions?secret=".$vasana_secret."',
         data: json_data
       });
     } catch (e) {
