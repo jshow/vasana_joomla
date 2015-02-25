@@ -60,6 +60,8 @@ class plgSystemVasana extends JPlugin
   // need an exception capture below - don't want to blow up the source page when we have troubles with impressing
   function impress(json_data) {
     try {
+      // console.log(json_data);
+      
       jQuery.ajax({
         type: 'POST',
         dataType: 'json',
@@ -94,27 +96,39 @@ class plgSystemVasana extends JPlugin
 
     www_link = jQuery( '#listing .fields .row0 .fieldRow .output a' ).first();
     if (www_link) {
+      
       topic = 'listing_www_visit_click'
-      jQuery(www_link).click(function() { // record when the listings website is clicked on
-         if ($user->guest) {
-           impress( { impression: { impressionable_type: 'Listing', impressionable_id: ".$impressionable_link_id.", topic: topic, impressionable_description: organization_name } } );
-         } else {
-           impress( { impression: { impressionable_type: 'Listing', impressionable_id: ".$impressionable_link_id.", topic: topic, user_id: ".$user->id.", impressionable_description: organization_name } } );
-         }
-       });
+              
+      jQuery(www_link).bind('click', { link_id: ".$impressionable_link_id.", topic: topic, organization_name: organization_name}, function(event) {
+
+        var event_data = event.data
+        
+        if ($user->guest) {
+          impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, impressionable_description: event_data.organization_name } } );
+        } else {
+          impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, user_id: ".$user->id.", impressionable_description: event_data.organization_name } } );
+        }
+      });
+      
     }
 
-    jQuery( '#listing .actions-rating-fav .actions a' ).each(function( index ) {
-      // console.log(jQuery(this).text());
+    jQuery( '#listing .actions-rating-fav .actions a' ).each(function( element ) {
+
       if (jQuery(this).text() == 'Visit') {
+
         topic = 'listing_www_visit_click'
-        jQuery(this).click(function() { // record when the listings website is clicked on
-           if ($user->guest) {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: ".$impressionable_link_id.", topic: topic, impressionable_description: organization_name } } );
-           } else {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: ".$impressionable_link_id.", topic: topic, user_id: ".$user->id.", impressionable_description: organization_name } } );
-           }
-         });
+        
+        jQuery(this).bind('click', { link_id: ".$impressionable_link_id.", topic: topic, organization_name: organization_name}, function(event) {
+          var event_data = event.data;
+          
+          if ($user->guest) {
+            impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, impressionable_description: event_data.organization_name } } );
+          } else {
+            impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, user_id: ".$user->id.", impressionable_description: event_data.organization_name } } );
+          }
+
+        });
+        
        }
     });    
   }
@@ -150,14 +164,17 @@ class plgSystemVasana extends JPlugin
            var topic = 'search_sponsor_click';
          }
          // console.log('topic: ' + topic);
-         
-         jQuery(this).click(function() { // record when this featured listing banner is clicked
+
+         jQuery(this).bind('click', { link_id: link_id, topic: topic, organization_name: organization_name}, function(event) {
+           var event_data = event.data
+           
            if ($user->guest) {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: topic, impressionable_description: organization_name } } );
+             impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, impressionable_description: event_data.organization_name } } );
            } else {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: topic, user_id: ".$user->id.", impressionable_description: organization_name } } );
+             impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, user_id: ".$user->id.", impressionable_description: event_data.organization_name } } );
            }
          });
+                  
        });
        
      });
@@ -189,15 +206,19 @@ class plgSystemVasana extends JPlugin
          if ( parent_tag.length > 0 ) {
            var topic = 'search_www_visit_click';
          } else {
+           //console.log(jQuery(this).attr('href'));
+           //console.log('link_id = ' + link_id);
            var topic = 'search_result_click';
          }
          // console.log('topic: ' + topic);
          
-         jQuery(this).click(function() { // record when this featured listing banner is clicked
+         jQuery(this).bind('click', { link_id: link_id, topic: topic, organization_name: organization_name}, function(event) {
+           var event_data = event.data
+           
            if ($user->guest) {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: topic, impressionable_description: organization_name } } );
+             impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, impressionable_description: event_data.organization_name } } );
            } else {
-             impress( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: topic, user_id: ".$user->id.", impressionable_description: organization_name } } );
+             impress( { impression: { impressionable_type: 'Listing', impressionable_id: event_data.link_id, topic: event_data.topic, user_id: ".$user->id.", impressionable_description: event_data.organization_name } } );
            }
          });
        });
