@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="1.8" type="plugin" group="system">
+<extension version="1.8" type="plugin" group="system" method="upgrade">
 	<name>System - Vasana Analytics</name>
 	<author>Jodi J. Showers</author>
 	<creationDate>February 2015</creationDate>
