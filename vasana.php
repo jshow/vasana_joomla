@@ -193,9 +193,9 @@ class plgSystemVasana extends JPlugin
        }
        
        if ($user->guest) {
-         json_data.impressions.push( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: 'search_result', impressionable_description: organization_name } } );
+         json_data.impressions.push( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: 'search_result_impression', impressionable_description: organization_name } } );
        } else {
-         json_data.impressions.push( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: 'search_result', user_id: ".$user->id.", impressionable_description: organization_name } } );
+         json_data.impressions.push( { impression: { impressionable_type: 'Listing', impressionable_id: link_id, topic: 'search_result_impression', user_id: ".$user->id.", impressionable_description: organization_name } } );
        }
 
        jQuery(this).find('a').each(function(){
